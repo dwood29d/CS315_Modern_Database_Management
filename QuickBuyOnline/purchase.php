@@ -114,9 +114,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <input type="submit" name="purchase" value="Purchase" class="btn btn-default" />
 
       <?php
-        //echo "<h3> PHP List All Session Variables</h3>";
-        //foreach ($_SESSION as $key=>$val)
-        //echo $key." ".$val."<br/>";
+        echo "<h3> PHP List All Session Variables</h3>";
+        foreach ($_SESSION as $key=>$val)
+        echo $key." ".$val."<br/>";
       ?>
     </form>
   </div>
@@ -131,24 +131,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <label for="theater">Theater: </label>
       <select name="theater">
         <?php
-          $q = "SELECT * FROM theaters";
+          $q = "SELECT * FROM products";
           $r = @mysqli_query($dbc, $q); // Run the query
-          $q2 = "SELECT * FROM movies";
-          $r2 = @mysqli_query($dbc, $q2); // Run the query
           while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-            echo '<option value="' . $row['theater_id'] . '">' . $row['theater_name'] . '</option>';
+            echo '<option value="' . $row['product_id'] . '">' . $row['name'] . '</option>';
           }
         ?>
       </select><br /><br />
 
-      <label for="movie">Movie: </label>
-      <select name="movie">
-        <?php
-          while ($row2 = mysqli_fetch_array($r2, MYSQLI_ASSOC)) {
-            echo '<option value="' . $row2['movie_id'] . '">' . $row2['movie_title'] . '</option>';
-          }
-        ?>
-      </select><br /><br />
       <label for="num_tickets">Quantity: </label>
       <input type="number" name="num_tickets"><br /><br />
 
