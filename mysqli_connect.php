@@ -5,10 +5,10 @@
   // selects the database, and sets the encoding
 
   // Set the database access information as constants:
-  DEFINE ('DB_USER', 'root');
-  DEFINE ('DB_PASSWORD', '');
-  DEFINE ('DB_HOST', 'localhost');
-  DEFINE ('DB_NAME', 'quick_buy_online');
+  DEFINE ('DB_USER', 'id5608117_admin'); // id5608117_admin
+  DEFINE ('DB_PASSWORD', 'password'); // password
+  DEFINE ('DB_HOST', 'localhost'); // localhost
+  DEFINE ('DB_NAME', 'id5608117_quickbuyonlinedb'); // quickbuyonlinedb
 
   //Make the connection:
   $dbc = @mysqli_connect (DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) OR die ('Could not connect to MySQL: ' . mysqli_connect_error() );
