@@ -3,10 +3,10 @@
   session_start();
 
   $page_title = 'View the Current Users';
-  include ('includes/header.html');
+  include ('includes/header.php');
   echo '<h1>Registered Users</h1>';
 
-  require ('../mysqli_connect.php'); // Connect to the db.
+  require ('mysqli_connect.php'); // Connect to the db.
 
   // Make the query:
   $q = "SELECT last_name, first_name, DATE_FORMAT(registration_date, '%M %d, %Y') AS dr, user_id FROM users ORDER BY registration_date ASC";

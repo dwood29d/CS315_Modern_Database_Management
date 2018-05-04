@@ -3,7 +3,7 @@ session_start();
 // This page will confirm that an administrator has gifted tickets. It will show an error if there is a failure of any kind. This will also eventually validate the number of tickets against the number of tickets available
 $page_title = 'Gift Tickets';
 include ('includes/header.html');
-require_once('../mysqli_connect.php'); // Connect to the db.
+require_once('mysqli_connect.php'); // Connect to the db.
 
 $q = "SELECT * FROM theaters";
 $r = @mysqli_query($dbc, $q); // Run the query

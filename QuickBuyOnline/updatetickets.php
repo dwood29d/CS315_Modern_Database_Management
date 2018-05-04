@@ -3,7 +3,7 @@ session_start();
 // This page will confirm that an administrator has made changes to a theater's number of available tickets
 $page_title = 'Update Tickets';
 include ('includes/header.html');
-require_once('../mysqli_connect.php'); // Connect to the db.
+require_once('mysqli_connect.php'); // Connect to the db.
 
 $q = "SELECT * FROM theaters";
 $r = @mysqli_query($dbc, $q); // Run the query

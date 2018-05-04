@@ -3,12 +3,12 @@
   session_start();
 
   $page_title = 'Register';
-  include ('includes/header.html');
+  include ('includes/header.php');
 
   // Check for form submission:
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    require ('../mysqli_connect.php'); // Connect to the database.
+    require ('mysqli_connect.php'); // Connect to the database.
 
     $errors = array(); // Initialize an error array.
 
@@ -60,9 +60,18 @@
       $r = @mysqli_query ($dbc, $q); // Run the query.
       if ($r) { // If it ran OK.
 
+        // Attach a cart to the user
+        $q1 = "SELECT user_id FROM users WHERE email =
+        '{$e}'";
+        $r1 = @mysqli_query($dbc, $q1);
+        $row = mysqli_fetch_array($r1, MYSQLI_NUM);
+        $result = $row[0];
+
+        $q2 = "INSERT INTO carts (user_id) VALUES ($result)";
+        $r2 = @mysqli_query($dbc, $q2);
         // Print a message:
         echo '<h1>Thank you!</h1>
-        <p>You are now registered. In Chapter 12 you will actually be able to log in!</p><p><br /></p>';
+        <p>You are now registered! Once you log in, you will have access to your cart and can make purchases!</p><p><br /></p>';
 
       } else { // If it did not run OK.
 

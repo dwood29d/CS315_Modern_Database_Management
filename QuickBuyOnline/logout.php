@@ -21,7 +21,7 @@
 
   // Set the page title and include the HTML header:
   $page_title = 'Logged Out';
-  include('includes/header.html');
+  include('includes/header.php');
 
   // Print a customized message:
   echo "<h1>Logged Out!</h1>

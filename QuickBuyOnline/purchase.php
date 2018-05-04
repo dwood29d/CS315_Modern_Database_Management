@@ -2,9 +2,9 @@
 session_start();
 // This page will check that the user is logged in
 // FOR SOME REASON THE LOGIN PAGE DOES NOT SET THE ADMINISTRATOR VALUE CORRECTLY! UNLESS IT'S DEFAULTING TO TRUE THIS PAGE DOES NOT WORK FOR ADMINS!!!
-$page_title = 'Purchase Tickets';
+$page_title = 'Purchase Items';
 include ('includes/header.html');
-require_once('../mysqli_connect.php'); // Connect to the db.
+require_once('mysqli_connect.php'); // Connect to the db.
 
 $q = "SELECT * FROM products";
 $r = @mysqli_query($dbc, $q); // Run the query
@@ -15,24 +15,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $errors = array();
 
   // Check for theater
-  if (empty($_POST['theater'])) {
-    $errors[] = 'You forgot to choose your theater.';
+  if (empty($_POST['product'])) {
+    $errors[] = 'You forgot to choose a product.';
   } else {
-    $th = mysqli_real_escape_string($dbc, trim($_POST['theater']));
+    $pr = mysqli_real_escape_string($dbc, trim($_POST['product']));
   }
 
-  // Check for movie
-  if (empty($_POST['movie'])) {
-    $errors[] = 'You forgot to choose your movie.';
-  } else {
-    $mo = mysqli_real_escape_string($dbc, trim($_POST['movie']));
-  } //echo "$mo";
-
   // Check for ticket quantity
-  if (empty($_POST['num_tickets'])) {
-    $errors[] = 'You forgot to specify the number of tickets.';
+  if (empty($_POST['num_items'])) {
+    $errors[] = 'You forgot to specify the number you want to purchase.';
   } else {
-    $qu = mysqli_real_escape_string($dbc, trim($_POST['num_tickets']));
+    $qu = mysqli_real_escape_string($dbc, trim($_POST['num_items']));
   } //echo "$th";
 
   /*$purchased_seats = "SELECT seats_purchased FROM movies_theaters WHERE movie_id = $mo AND theater_id = $th";
@@ -41,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $total_seats = "SELECT seats_per_theater FROM theaters WHERE theater_id = $th";
   $total_seats_results = @mysqli_query($dbc, $total_seats); // Should be 100
   $total_seats_num = mysqli_fetch_array($total_seats_results);
-  $test_seats = $purchased_seats_num[0] + $_POST['num_tickets'];*/
+  $test_seats = $purchased_seats_num[0] + $_POST['num_items'];*/
 // DEBUGGING MESSAGE
   /*echo "<h1>These are my Variables!</h1><p>$th, $mo, $total_seats_num[0], $purchased_seats_num[0], $test_seats</p>";*/
   /*if ($test_seats > $total_seats_num[0]) {
@@ -52,6 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Make an update query'
     for ($i = 0; $i < $qu; $i++){
+      $q3 = "INSERT INTO purchases (product_id) VALUES ($pr)"; //Update this to tell who bought it
+
       $q3 = "INSERT INTO tickets (movie_id, theater_id, price) VALUES ($mo, $th, 10.00)";
       $r3 = @mysqli_query($dbc, $q3); // Create a ticket record
       $query_update_seats = "UPDATE movies_theaters SET seats_purchased = $test_seats WHERE movie_id = $mo AND theater_id = $th";
@@ -97,6 +92,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } // End of main Submit Conditional.
 ?>
 
+<div class="cart-items">
+  
+</div>
+
 <div class="purchase_page">
   <div class="purchase">
   <h1>Purchase Items</h1><br /><br />
@@ -109,8 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           }
         ?>
       </select><br /><br />
-      <label for="num_tickets">Quantity: </label>
-      <input type="number" name="num_tickets"><br /><br />
+      <label for="num_items">Quantity: </label>
+      <input type="number" name="num_items"><br /><br />
       <input type="submit" name="purchase" value="Purchase" class="btn btn-default" />
 
       <?php
@@ -126,10 +125,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   ?>
 
   <div class="purchase">
-  <h1>Gift Tickets</h1><br /><br />
+  <h1>Gift Item</h1><br /><br />
     <form action="gift.php" method="post">
-      <label for="theater">Theater: </label>
-      <select name="theater">
+      <label for="product">Product: </label>
+      <select name="product">
         <?php
           $q = "SELECT * FROM products";
           $r = @mysqli_query($dbc, $q); // Run the query
@@ -139,8 +138,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ?>
       </select><br /><br />
 
-      <label for="num_tickets">Quantity: </label>
-      <input type="number" name="num_tickets"><br /><br />
+      <label for="num_items">Quantity: </label>
+      <input type="number" name="num_items"><br /><br />
 
       <label for="email">User Email: </label>
       <input type="text" name="email" size="20" maxlength="60" /><br /><br />

@@ -3,7 +3,7 @@
   session_start();
 
   $page_title = 'Edit a User';
-  include ('includes/header.html');
+  include ('includes/header.php');
   echo '<h1>Edit a User</h1>';
 
   // Check for a valid user ID, through GET or POST:
@@ -17,7 +17,7 @@
     exit();
   }
 
-  require_once('../mysqli_connect.php');
+  require_once('mysqli_connect.php');
 
   // Check if the form has been submitted:
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {

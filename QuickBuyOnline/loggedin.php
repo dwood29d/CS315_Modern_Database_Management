@@ -14,7 +14,7 @@
 
   // Set the page title and include the HTML header:
   $page_title = 'Logged In!';
-  include ('includes/header.html');
+  include ('includes/header.php');
 
   // Print a customized message:
   echo "<h1>Logged In!</h1>
